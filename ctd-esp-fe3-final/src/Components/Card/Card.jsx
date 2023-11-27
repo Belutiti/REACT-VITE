@@ -1,11 +1,22 @@
-import React from "react";
-import './Card.css';
+import React, { useEffect, useState } from "react";
+import "./Card.css";
 
 const Card = ({ name, username, id }) => {
+  const [favArray, setFavArray] = useState([]);
 
-  const addFav = ()=>{
-    // Aqui iria la logica para agregar la Card en el localStorage
-  }
+  useEffect(() => {
+    const obtenerLs = localStorage.getItem("favoritos");
+    if (obtenerLs) {
+      setFavArray(JSON.parse(obtenerLs));
+    }
+  }, []);
+
+  const addFav = () => {
+    const favInfo = { id, name, username };
+    const nuevaFavArray = [...favArray, favInfo];
+    localStorage.setItem("favoritos", JSON.stringify(nuevaFavArray));
+    setFavArray(nuevaFavArray)
+  };
 
   return (
     <div className="card">
@@ -13,7 +24,9 @@ const Card = ({ name, username, id }) => {
         <h2 className="text-title">{`${id} - ${name}`}</h2>
         <p className="text-body">{username}</p>
       </div>
-        <button onClick={addFav} className="card-button">Add fav</button>
+      <button onClick={addFav} className="card-button">
+        Add fav
+      </button>
     </div>
   );
 };

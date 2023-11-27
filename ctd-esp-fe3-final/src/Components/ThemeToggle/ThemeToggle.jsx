@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './ThemeToggle.css'
+import { ContextGlobal } from '../utils/global.context'
 
 const ThemeToggle = () => {
+    const {theme, setTheme}= useContext(ContextGlobal)
     return (
         <label class="theme-switch">
-            <input type="checkbox" class="theme-switch__checkbox" />
+            <input type="checkbox" class="theme-switch__checkbox" onChange={()=>setTheme(!theme)} checked={!theme}/>
                 <div class="theme-switch__container">
                     <div class="theme-switch__clouds"></div>
                     <div class="theme-switch__stars-container">
