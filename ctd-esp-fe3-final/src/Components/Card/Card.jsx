@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Card.css";
 
 const Card = ({ name, username, id }) => {
-  const [favArray, setFavArray] = useState([]);
+const [favArray, setFavArray] = useState([]);
 
   useEffect(() => {
     const obtenerLs = localStorage.getItem("favoritos");

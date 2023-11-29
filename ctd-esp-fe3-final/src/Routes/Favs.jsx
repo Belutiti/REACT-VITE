@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { ContextGlobal } from "../Components/utils/global.context";
+//import { ContextGlobal } from "../Components/utils/global.context";
 import Card from "../Components/Card/Card";
 
 const Favs = () => {
@@ -15,7 +15,7 @@ const Favs = () => {
   }, []);
 
   return (
-    <div className={theme ? "estiloClaro" : "estiloOscuro"}>
+    <div>
       <h1>Dentists Favs</h1>
       <div className="card-grid">
         {favoritosLs.map((favoritoLs) => (

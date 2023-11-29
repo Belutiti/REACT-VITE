@@ -1,26 +1,47 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect} from "react";
+import { useReducer } from "react";
+import { reducer } from "../../Reducer/reducer";
+import axios from "axios";
+import { useParams } from 'react-router-dom'
 
-export const initialState = {theme: "", data: []}
 
-export const ContextGlobal = createContext(undefined);
+const ContextGlobal = createContext();
 
-export const ContextProvider = ({ children }) => {
-  const [theme, setTheme]= useState(false)
+const initialState = {
+  theme: "", 
+  favList: [], 
+  homeList: [],
+  detaiList:[]
+}
 
-  useMemo(()=>{
-    localStorage.setItem('theme',JSON.stringify(theme))
-  }, [theme])
+const ContextProvider = ({ children }) => {
 
-  useEffect(()=>{
-    JSON.parse(localStorage.getItem('theme'))
-  }, [])
+  //ApiCall de Cards en Home
+const [state, dispatch]= useReducer(reducer, initialState)
+const url= 'https://jsonplaceholder.typicode.com/users'
+
+useEffect(()=>{
+  axios(url)
+ .then(res=> dispatch({type: 'HOMELIST', payload: res.data}))
+}, [])
+
+//ApiCall de detalles  en Card
+const {id}= useParams()
+const urlDinamico= `https://jsonplaceholder.typicode.com/users/${id}`
+
+useEffect(()=>{
+    axios(urlDinamico)
+    .then((response)=>dispatch({type: 'DETAILIST', payload: response.data}))
+  }, [id])
+
 
   return (
-    <ContextGlobal.Provider value={{
-      theme: theme, 
-      setTheme: setTheme
-      }}>
+    <ContextGlobal.Provider value={{state, dispatch}}>
       {children}
     </ContextGlobal.Provider>
   );
 };
+
+export default ContextProvider
+export const useContextGlobal=()=> useContext(ContextGlobal)
+

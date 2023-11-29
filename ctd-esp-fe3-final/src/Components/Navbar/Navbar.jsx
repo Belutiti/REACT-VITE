@@ -1,16 +1,17 @@
 import React, { useContext } from "react";
-import ThemeToggle from "../ThemeToggle/ThemeToggle";
-import { ContextGlobal } from "../utils/global.context";
+//import ThemeToggle from "../ThemeToggle/ThemeToggle";
+//import { ContextGlobal } from "../utils/global.context";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const { theme } = useContext(ContextGlobal);
+ // const { theme } = useContext(ContextGlobal);
   return (
-    <nav className={theme ? "estiloClaro" : "estiloOscuro"}>
+    <nav>
       <Link to="/">Home</Link>
       <Link to="/favs">Favoritos</Link>
       <Link to="/contacto">Contacto</Link>
-      <ThemeToggle />
+      <Link to='/dentista/:id'>Detalles</Link>
+      {/* <ThemeToggle /> */}
     </nav>
   );
 };
