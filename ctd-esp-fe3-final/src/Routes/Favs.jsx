@@ -3,8 +3,7 @@ import Card from "../Components/Card/Card";
 import { useContextGlobal } from "../Components/utils/global.context";
 
 const Favs = () => {
-const {state}= useContextGlobal()
-
+  const { state } = useContextGlobal();
 
   return (
     <div>
@@ -16,8 +15,7 @@ const {state}= useContextGlobal()
             name={favoritoLs.name}
             username={favoritoLs.username}
             id={favoritoLs.id}
-            >
-          </Card>
+          />
         ))}
       </div>
     </div>

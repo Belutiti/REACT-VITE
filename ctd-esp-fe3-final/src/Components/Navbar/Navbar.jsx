@@ -9,7 +9,6 @@ return (
       <Link to="/">Home</Link>
       <Link to="/favs">Favoritos</Link>
       <Link to="/contacto">Contacto</Link>
-      <Link to='/dentista/:id'>Detalles</Link>
       <ThemeToggle />
     </nav>
   );

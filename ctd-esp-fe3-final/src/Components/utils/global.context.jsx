@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect} from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useReducer } from "react";
 import { reducer } from "../../Reducer/reducer";
 import axios from "axios";
@@ -6,29 +6,33 @@ import axios from "axios";
 const ContextGlobal = createContext();
 
 const initialState = {
-  theme: true, 
-  favList: [], 
+  theme: true,
+  favList: JSON.parse(localStorage.getItem("favList"))
+    ? JSON.parse(localStorage.getItem("favList"))
+    : [],
   homeList: [],
-  detaiList:[]
-}
+  detaiList: [],
+};
 
-const ContextProvider= ({ children}) => {
+const ContextProvider = ({ children }) => {
   //ApiCall de Cards en Home
-const [state, dispatch]= useReducer(reducer, initialState)
-const url= 'https://jsonplaceholder.typicode.com/users'
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const url = "https://jsonplaceholder.typicode.com/users";
+
+  useEffect(() => {
+    axios(url).then((res) => dispatch({ type: "HOMELIST", payload: res.data }));
+  }, []);
 
 useEffect(()=>{
-  axios(url)
- .then(res=> dispatch({type: 'HOMELIST', payload: res.data}))
-}, [])
+localStorage.setItem('favList', JSON.stringify(state.favList))
+}, [state.favList])
 
   return (
-    <ContextGlobal.Provider value={{state, dispatch}}>
+    <ContextGlobal.Provider value={{ state, dispatch }}>
       {children}
     </ContextGlobal.Provider>
   );
 };
 
-export default ContextProvider
-export const useContextGlobal=()=> useContext(ContextGlobal)
-
+export default ContextProvider;
+export const useContextGlobal = () => useContext(ContextGlobal);
