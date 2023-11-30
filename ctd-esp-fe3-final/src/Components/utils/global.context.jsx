@@ -1,26 +1,38 @@
-import { createContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
+import { useReducer } from "react";
+import { reducer } from "../../Reducer/reducer";
+import axios from "axios";
 
-export const initialState = {theme: "", data: []}
+const ContextGlobal = createContext();
 
-export const ContextGlobal = createContext(undefined);
+const initialState = {
+  theme: true,
+  favList: JSON.parse(localStorage.getItem("favList"))
+    ? JSON.parse(localStorage.getItem("favList"))
+    : [],
+  homeList: [],
+  detaiList: [],
+};
 
-export const ContextProvider = ({ children }) => {
-  const [theme, setTheme]= useState(false)
+const ContextProvider = ({ children }) => {
+  //ApiCall de Cards en Home
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const url = "https://jsonplaceholder.typicode.com/users";
 
-  useMemo(()=>{
-    localStorage.setItem('theme',JSON.stringify(theme))
-  }, [theme])
+  useEffect(() => {
+    axios(url).then((res) => dispatch({ type: "HOMELIST", payload: res.data }));
+  }, []);
 
-  useEffect(()=>{
-    JSON.parse(localStorage.getItem('theme'))
-  }, [])
+useEffect(()=>{
+localStorage.setItem('favList', JSON.stringify(state.favList))
+}, [state.favList])
 
   return (
-    <ContextGlobal.Provider value={{
-      theme: theme, 
-      setTheme: setTheme
-      }}>
+    <ContextGlobal.Provider value={{ state, dispatch }}>
       {children}
     </ContextGlobal.Provider>
   );
 };
+
+export default ContextProvider;
+export const useContextGlobal = () => useContext(ContextGlobal);
