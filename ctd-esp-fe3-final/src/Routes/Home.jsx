@@ -11,14 +11,12 @@ const Home = () => {
       <h1>Home</h1>
       <div className="card-grid">
         {state.homeList.map((dentista) => (
-          <Link key={dentista.id} to={`/dentista/${dentista.id}`}>
             <Card
               key={dentista.id}
               name={dentista.name}
               username={dentista.username}
               id={dentista.id}
             />
-          </Link>
         ))}
       </div>
     </main>

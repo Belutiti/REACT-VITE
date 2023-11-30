@@ -1,24 +1,16 @@
 import React, { useEffect, useState, useContext } from "react";
-//import { ContextGlobal } from "../Components/utils/global.context";
 import Card from "../Components/Card/Card";
+import { useContextGlobal } from "../Components/utils/global.context";
 
 const Favs = () => {
-  const { theme } = useContext(ContextGlobal);
-  const [favoritosLs, setFavoritosLs] = useState([]);
+const {state}= useContextGlobal()
 
-  useEffect(() => {
-    const cardStorage = localStorage.getItem("favoritos");
-    if (cardStorage) {
-      const cardParse = JSON.parse(cardStorage);
-      setFavoritosLs(cardParse);
-    }
-  }, []);
 
   return (
     <div>
       <h1>Dentists Favs</h1>
       <div className="card-grid">
-        {favoritosLs.map((favoritoLs) => (
+        {state.favList.map((favoritoLs) => (
           <Card
             key={favoritoLs.id}
             name={favoritoLs.name}

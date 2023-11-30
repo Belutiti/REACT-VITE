@@ -1,8 +1,16 @@
+import { useParams } from 'react-router';
 import { useContextGlobal } from '../Components/utils/global.context'
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const Detail = () => {
- const {state}= useContextGlobal()
- console.log("ID:", id);
+ const {state, dispatch}= useContextGlobal()
+ const {id}= useParams()
+
+ useEffect(()=>{
+     axios(`https://jsonplaceholder.typicode.com/users/${id}`)
+     .then((response)=>dispatch({type: 'DETAILIST', payload: response.data}))
+   }, [])
 
   return (
     <div>

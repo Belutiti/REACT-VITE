@@ -5,10 +5,13 @@ import Contact from "./Routes/Contact";
 import Home from "./Routes/Home";
 import Detail from "./Routes/Detail";
 import Favs from "./Routes/Favs";
+import { useContextGlobal } from "./Components/utils/global.context";
 
 function App() {
+  const {state}= useContextGlobal()
+
   return (
-      <div className="App">
+      <div className="App" style={{backgroundColor: state.theme ? 'pink' : "green"}}>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
