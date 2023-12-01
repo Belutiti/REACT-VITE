@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import Card from "../Components/Card/Card";
-import { Link } from "react-router-dom";
 import { useContextGlobal } from "../Components/utils/global.context";
 
 const Home = () => {
   const { state } = useContextGlobal();
   
   return (
-    <main>
+    <>
       <h1>Home</h1>
       <div className="card-grid">
         {state.homeList.map((dentista) => (
@@ -19,7 +18,7 @@ const Home = () => {
             />
         ))}
       </div>
-    </main>
+    </>
   );
 };
 
