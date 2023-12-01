@@ -1,10 +1,9 @@
 import Form from '../Components/Form/Form'
+import '../Components/Form/Form.css'
 
 const Contact = () => {
   return (
-    <div>
-      <h2>Want to know more?</h2>
-      <p>Send us your questions and we will contact you</p>
+    <div className='contactContainer'>
       <Form />
     </div>
   )

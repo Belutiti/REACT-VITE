@@ -8,7 +8,7 @@ export const reducer = (state, action) => {
       return { ...state, favList: state.favList.filter((item)=>item.id!==action.payload.id) };
     case "HOMELIST":
       return { ...state, homeList: action.payload };
-    case "DETAILIST":
+    case "DETAIL":
       return { ...state, detaiList: action.payload };
     default:
       return state;
