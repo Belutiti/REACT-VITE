@@ -12,12 +12,13 @@ function App() {
   const { state } = useContextGlobal()
 
   const appStyle = state.theme ? {
-    backgroundImage: 'url(./img/lightBackground.svg)',
+    backgroundImage: 'url(/img/lightBackground.svg)',
     color: 'black',
   } : {
-    backgroundImage: 'url(./img/darkBackground.svg)',
+    backgroundImage: 'url(/img/darkBackground.svg)',
     color: 'white'
   }
+
   return (
     <div className="App" style={appStyle}>
       <Navbar />
