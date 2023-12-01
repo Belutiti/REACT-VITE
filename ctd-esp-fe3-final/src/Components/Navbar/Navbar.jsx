@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav style={{backgroundColor: state.theme ? "rgba(0, 0, 0, 0.346)" : "rgb(255 255 255 / 19%)"}}>
       <div className="navDetails">
         <Link to="/">HOME</Link>
-        <Link to="/favs">FAVORITOS</Link>
+        <Link to="/favs"><span id="fav">FAVORITOS</span><span>{state.favList.length}</span></Link>
         <Link to="/contacto">CONTACTO</Link>
       </div>
       <ThemeToggle />
